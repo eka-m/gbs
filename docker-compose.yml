@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "127.0.0.1:44440:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: ms$f_l205Unp0C1n
+      WORDPRESS_DB_NAME: wpdb
+    volumes:
+      - ./wp:/var/www/html
+      - ./php.ini:/usr/local/etc/php/conf.d/custom.ini
+
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: wpdb
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: ms$f_l205Unp0C1n
+      MYSQL_ROOT_PASSWORD: ms$f_l205Unp0C1n
+    volumes:
+      - ./db:/var/lib/mysql
+
+volumes:
+  wordpress_data:
+  db_data:
